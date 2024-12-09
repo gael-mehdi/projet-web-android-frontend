@@ -6,9 +6,9 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface MonumentService {
-    @GET("/books")
+    @GET("/monuments")
     fun getAllMonuments(): Call<List<Monument>>
 
-    @POST("/books")
-    fun createMonument(@Body book: Monument): Call<Monument>
+    @POST("/monuments")
+    fun createMonument(@Body monument: Monument): Call<Monument>
 }

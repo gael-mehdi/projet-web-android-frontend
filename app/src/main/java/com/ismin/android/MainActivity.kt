@@ -6,6 +6,12 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import retrofit2.Call
 import retrofit2.Callback
@@ -19,8 +25,11 @@ class MainActivity : AppCompatActivity(), MonumentCreator {
 
     private val monumentManagement = MonumentManagement()
 
-    private val retrofit = Retrofit.Builder().addConverterFactory(GsonConverterFactory.create())
-        .baseUrl(SERVER_BASE_URL).build()
+    private val retrofit = Retrofit.Builder()
+        .addConverterFactory(GsonConverterFactory.create())
+        .baseUrl(SERVER_BASE_URL)
+        .build()
+
     private val monumentService = retrofit.create(MonumentService::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,9 +37,7 @@ class MainActivity : AppCompatActivity(), MonumentCreator {
         setContentView(R.layout.activity_main)
 
         monumentService.getAllMonuments().enqueue(object : Callback<List<Monument>> {
-            override fun onResponse(
-                call: Call<List<Monument>>, response: Response<List<Monument>>
-            ) {
+            override fun onResponse(call: Call<List<Monument>>, response: Response<List<Monument>>) {
                 val allMonuments: List<Monument>? = response.body()
                 allMonuments?.forEach { monumentManagement.addMonument(it) }
                 displayMonumentListFragment()
@@ -42,46 +49,60 @@ class MainActivity : AppCompatActivity(), MonumentCreator {
         })
     }
 
-        /*
-        btnCreateMonument.setOnClickListener {
-            displayCreateBookFragment()
-        }
-    }
-    */
-
     private fun displayMonumentListFragment() {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         val monumentListFragment = MonumentListFragment.newInstance(monumentManagement.getAllMonuments())
         fragmentTransaction.replace(R.id.a_main_lyt_container, monumentListFragment)
         fragmentTransaction.commit()
-        // btnCreateBook.visibility = View.VISIBLE
     }
 
-        /*
-    private fun displayCreateBookFragment() {
-        val fragmentTransaction = supportFragmentManager.beginTransaction()
-        val createBookFragment = CreateMonumentFragment()
-        fragmentTransaction.replace(R.id.a_main_lyt_container, createBookFragment)
-        fragmentTransaction.commit()
-        btnCreateBook.visibility = View.GONE
+    private fun displayMapFragment(monuments: List<Monument>?) {
+        monuments?.let {
+            val mapFragment = MapFragment.newInstance(it)
+            val fragmentTransaction = supportFragmentManager.beginTransaction()
+            fragmentTransaction.replace(R.id.a_main_lyt_container, mapFragment)
+            fragmentTransaction.addToBackStack(null) // Ajoute le fragment à la pile pour pouvoir revenir en arrière
+            fragmentTransaction.commit()
+        }
     }
-    */
-    
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {//menu 3 fragment
         menuInflater.inflate(R.menu.menu_main, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {//clique sur un monument
         return when (item.itemId) {
             R.id.action_delete -> {
                 monumentManagement.clear()
                 displayMonumentListFragment()
                 true
             }
+            R.id.action_show_list -> {
+                // Afficher le fragment de la liste
+                displayFragment(MonumentListFragment.newInstance(monumentManagement.getAllMonuments()))
+                true
+            }
+            R.id.action_show_map -> {
+                // Afficher le fragment de la carte
+                displayFragment(MapFragment.newInstance(monumentManagement.getAllMonuments())) // Passer les monuments
+                true
+            }
+
+            R.id.action_show_info -> {
+                // Afficher le fragment d'information de l'application
+                displayFragment(InfoFragment())
+                true
+            }
 
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun displayFragment(fragment: Fragment) {
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.a_main_lyt_container, fragment)
+        fragmentTransaction.addToBackStack(null) // Permet de revenir en arrière si nécessaire
+        fragmentTransaction.commit()
     }
 
 

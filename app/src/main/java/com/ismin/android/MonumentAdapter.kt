@@ -15,22 +15,22 @@ class MonumentAdapter(private var monuments: List<Monument>) : RecyclerView.Adap
         val monument = monuments[position]
         holder.txvRef.text = "ref: ${monument.ref}"
         holder.txvEdif.text = monument.edif
-        holder.txvAdresse.text = monument.adresse ?: "Adresse non disponible"
+        // holder.txvAdresse.text = monument.adresse ?: "Adresse non disponible"
         holder.txvCom.text = monument.com
-        holder.txvLeg.text = monument.leg
-        holder.txvVideoV.text = monument.video_v
-        holder.txvGeoloc.text = monument.geoloc?.let { "lon: ${it.lon}, lat: ${it.lat}" } ?: "Localisation non disponible"
-        holder.txvRegName.text = monument.reg_name
-        holder.txvDepCurrentCode.text = monument.dep_current_code
-        holder.txvDepName.text = monument.dep_name
-        holder.txvFav.text = if (monument.fav) "Favoris : Oui" else "Favoris : Non"
+        // holder.txvLeg.text = monument.leg
+        // holder.txvVideoV.text = monument.video_v
+        // holder.txvGeoloc.text = monument.geoloc?.let { "lon: ${it.lon}, lat: ${it.lat}" } ?: "Localisation non disponible"
+        // holder.txvRegName.text = monument.reg_name
+        // holder.txvDepCurrentCode.text = monument.dep_current_code
+        // holder.txvDepName.text = monument.dep_name
+        // holder.txvFav.text = if (monument.fav) "Favoris : Oui" else "Favoris : Non"
     }
 
     override fun getItemCount(): Int {
         return monuments.size
     }
 
-    fun updateBooks(allMonuments: List<Monument>) {
+    fun updateMonuments(allMonuments: List<Monument>) {
         monuments = allMonuments
         notifyDataSetChanged()
     }

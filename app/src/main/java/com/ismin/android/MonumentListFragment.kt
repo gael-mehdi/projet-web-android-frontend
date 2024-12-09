@@ -45,7 +45,7 @@ class MonumentListFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(books: ArrayList<Monument>) =
+        fun newInstance(monuments: ArrayList<Monument>) =
             MonumentListFragment().apply {
                 arguments = Bundle().apply {
                     putSerializable(MONUMENTS, monuments)
