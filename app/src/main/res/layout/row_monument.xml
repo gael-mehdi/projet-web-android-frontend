@@ -14,7 +14,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Candide" />
+        tools:text="Nom de l'édifice" />
 
     <TextView
         android:id="@+id/r_monument_txv_dep_current_code"
@@ -23,7 +23,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/r_monument_txv_edif"
-        tools:text="Voltaire" />
+        tools:text="Code de département" />
 
     <TextView
         android:id="@+id/r_monument_txv_com"
@@ -33,7 +33,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintStart_toEndOf="@+id/r_monument_txv_dep_current_code"
         app:layout_constraintTop_toBottomOf="@+id/r_monument_txv_edif"
-        tools:text="22/10/1678" />
+        tools:text="Commune" />
 
     <TextView
         android:id="@+id/r_monument_txv_ref"
@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/r_monument_txv_dep_current_code"
-        tools:text="123-54394530" />
+        tools:text="Référence" />
 
     <ImageButton
         android:id="@+id/r_monument_btn_photo"

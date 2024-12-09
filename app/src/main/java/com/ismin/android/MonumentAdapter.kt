@@ -16,8 +16,10 @@ class MonumentAdapter(private var monuments: List<Monument>) : RecyclerView.Adap
 
     override fun onBindViewHolder(holder: MonumentViewHolder, position: Int) {
         val monument = monuments[position]
-        holder.txvRef.text = "ref: ${monument.ref}"
+        // holder.txvRef.text = "ref: ${monument.ref}"
+        holder.txvRef.text = monument.ref
         holder.txvEdif.text = monument.edif
+        holder.txvDepCurrentCode.text = monument.dep_current_code
         // holder.txvAdresse.text = monument.adresse ?: "Adresse non disponible"
         holder.txvCom.text = monument.com
         // holder.txvLeg.text = monument.leg
@@ -28,6 +30,15 @@ class MonumentAdapter(private var monuments: List<Monument>) : RecyclerView.Adap
         // holder.txvDepName.text = monument.dep_name
         // holder.txvFav.text = if (monument.fav) "Favoris : Oui" else "Favoris : Non"
 
+        // Ajouter un clic sur le titre
+        holder.txvEdif.setOnClickListener {
+            val context = holder.itemView.context
+            val intent = Intent(context, DetailedMonumentActivity::class.java)
+
+            // Passer les données nécessaires à l'activité
+            intent.putExtra("EXTRA_MONUMENT", monument)
+            context.startActivity(intent)
+        }
 
         // Gérer le clic sur le bouton avec l'icône d'appareil photo
         holder.btnPhoto.setOnClickListener {

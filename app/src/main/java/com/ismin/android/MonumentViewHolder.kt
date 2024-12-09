@@ -14,7 +14,7 @@ class MonumentViewHolder(rootView: View) : RecyclerView.ViewHolder(rootView) {
     // var txvVideoV = rootView.findViewById<TextView>(R.id.r_monument_txv_videoV)
     // var txvGeoloc = rootView.findViewById<TextView>(R.id.r_monument_txv_geoloc)
     // var txvRegName = rootView.findViewById<TextView>(R.id.r_monument_txv_regName)
-    // var txvDepCurrentCode = rootView.findViewById<TextView>(R.id.r_monument_txv_depCurrentCode)
+    var txvDepCurrentCode = rootView.findViewById<TextView>(R.id.r_monument_txv_dep_current_code)
     // var txvDepName = rootView.findViewById<TextView>(R.id.r_monument_txv_depName)
     // var txvFav = rootView.findViewById<TextView>(R.id.r_monument_txv_fav)
     val btnPhoto: ImageButton = rootView.findViewById(R.id.r_monument_btn_photo)

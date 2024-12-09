@@ -17,7 +17,7 @@ class MonumentManagement {
             .sortedBy { monument -> monument.dep_current_code })
     }
 
-    fun getBooksOf(reg_name: String): List<Monument> {
+    fun getMonumentsOf(reg_name: String): List<Monument> {
         return storage.filterValues { monument -> monument.reg_name.equals(reg_name) }
             .values
             .sortedBy { monument -> monument.edif }
