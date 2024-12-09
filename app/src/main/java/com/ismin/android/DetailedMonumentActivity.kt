@@ -1,9 +1,11 @@
 package com.ismin.android
 
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 
 class DetailedMonumentActivity : AppCompatActivity() {
 
@@ -25,6 +27,16 @@ class DetailedMonumentActivity : AppCompatActivity() {
             findViewById<TextView>(R.id.r_monument_detailed_txv_dep_name).text = "Nom du département : ${monumentDetails.dep_name}"
             findViewById<TextView>(R.id.r_monument_detailed_txv_com).text = "Commune : ${monumentDetails.com}"
             findViewById<TextView>(R.id.r_monument_detailed_txv_adresse).text = "Adresse : ${monumentDetails.adresse}"
+
+            // Charger l'image depuis l'URL avec Glide
+            val imageView = findViewById<ImageView>(R.id.r_monument_detailed_img)
+            val imageUrl = monumentDetails.video_v // Assure-toi que tu as un champ `imageUrl` dans ton objet Monument
+
+            // Utiliser Glide pour charger l'image
+            Glide.with(this)
+                .load(imageUrl) // URL de l'image
+                .into(imageView) // Afficher l'image dans l'ImageView
+
         } catch (e: Exception) {
             // Si le monument n'est pas trouvé, afficher un message d'erreur
             showError("Monument introuvable")
