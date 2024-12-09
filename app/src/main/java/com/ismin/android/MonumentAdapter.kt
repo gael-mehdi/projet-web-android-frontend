@@ -1,7 +1,10 @@
 package com.ismin.android
 
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 
 class MonumentAdapter(private var monuments: List<Monument>) : RecyclerView.Adapter<MonumentViewHolder>() {
@@ -24,6 +27,18 @@ class MonumentAdapter(private var monuments: List<Monument>) : RecyclerView.Adap
         // holder.txvDepCurrentCode.text = monument.dep_current_code
         // holder.txvDepName.text = monument.dep_name
         // holder.txvFav.text = if (monument.fav) "Favoris : Oui" else "Favoris : Non"
+
+
+        // Gérer le clic sur le bouton avec l'icône d'appareil photo
+        holder.btnPhoto.setOnClickListener {
+            // Créer une intention pour ouvrir un lien
+            val url = monument.video_v // Supposons que chaque monument a une propriété `video_v`
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+
+            // Démarrer l'activité sans vérification supplémentaire
+            holder.itemView.context.startActivity(intent)
+        }
+
     }
 
     override fun getItemCount(): Int {
