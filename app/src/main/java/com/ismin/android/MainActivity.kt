@@ -18,6 +18,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import android.widget.Button
 
 const val SERVER_BASE_URL = "https://app-d0436373-79f9-4739-a7e7-b74039970a4e.cleverapps.io" // URL de notre API
 
@@ -36,6 +37,7 @@ class MainActivity : AppCompatActivity(), MonumentCreator {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Charger les monuments au démarrage
         monumentService.getAllMonuments().enqueue(object : Callback<List<Monument>> {
             override fun onResponse(call: Call<List<Monument>>, response: Response<List<Monument>>) {
                 val allMonuments: List<Monument>? = response.body()
@@ -47,6 +49,22 @@ class MainActivity : AppCompatActivity(), MonumentCreator {
                 Toast.makeText(baseContext, "Something wrong happened", Toast.LENGTH_SHORT).show()
             }
         })
+
+        // Configurer les clics sur les boutons
+        findViewById<Button>(R.id.button).setOnClickListener {
+            // Afficher le fragment Liste
+            displayFragment(MonumentListFragment.newInstance(monumentManagement.getAllMonuments()))
+        }
+
+        findViewById<Button>(R.id.button2).setOnClickListener {
+            // Afficher le fragment Map
+            displayFragment(MapFragment.newInstance(monumentManagement.getAllMonuments()))
+        }
+
+        findViewById<Button>(R.id.button3).setOnClickListener {
+            // Afficher le fragment Info
+            displayFragment(InfoFragment())
+        }
     }
 
     private fun displayMonumentListFragment() {
