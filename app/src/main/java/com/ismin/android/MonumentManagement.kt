@@ -32,4 +32,10 @@ class MonumentManagement {
     fun clear() {
         storage.clear()
     }
+
+    fun setMonuments(newMonuments: List<Monument>) {
+        //clear()
+        getAllMonuments()
+        println(storage)
+    }
 }

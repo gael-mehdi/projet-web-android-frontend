@@ -81,7 +81,7 @@
         app:layout_constraintTop_toBottomOf="@+id/r_monument_detailed_txv_adresse" />
 
     <CheckBox
-        android:id="@+id/r_monument_detailed_btn_star"
+        android:id="@+id/r_monument_detailed_checkbox_favorite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"

@@ -3,16 +3,9 @@ package com.ismin.android
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -90,6 +83,21 @@ class MainActivity : AppCompatActivity(), MonumentCreator {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {//clique sur un monument
         return when (item.itemId) {
+            R.id.action_refresh -> {
+                // Récupération des monuments asynchrone
+                monumentService.getAllMonuments().enqueue(object : Callback<List<Monument>> {
+                    override fun onResponse(call: Call<List<Monument>>, response: Response<List<Monument>>) {
+                        val allMonuments: List<Monument>? = response.body()
+                        allMonuments?.forEach { monumentManagement.addMonument(it) }
+                        displayMonumentListFragment()
+                    }
+
+                    override fun onFailure(call: Call<List<Monument>>, t: Throwable) {
+                        Toast.makeText(baseContext, "Something wrong happened", Toast.LENGTH_SHORT).show()
+                    }
+                })
+                true
+            }
             R.id.action_show_list -> {
                 // Afficher le fragment de la liste
                 displayFragment(MonumentListFragment.newInstance(monumentManagement.getAllMonuments()))
