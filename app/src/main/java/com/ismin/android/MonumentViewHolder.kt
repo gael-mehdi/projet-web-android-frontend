@@ -1,6 +1,7 @@
 package com.ismin.android
 
 import android.view.View
+import android.widget.CheckBox
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -16,6 +17,6 @@ class MonumentViewHolder(rootView: View) : RecyclerView.ViewHolder(rootView) {
     // var txvRegName = rootView.findViewById<TextView>(R.id.r_monument_txv_regName)
     var txvDepCurrentCode = rootView.findViewById<TextView>(R.id.r_monument_txv_dep_current_code)
     // var txvDepName = rootView.findViewById<TextView>(R.id.r_monument_txv_depName)
-    // var txvFav = rootView.findViewById<TextView>(R.id.r_monument_txv_fav)
     val btnPhoto: ImageButton = rootView.findViewById(R.id.r_monument_btn_photo)
+    val btnStar: CheckBox = rootView.findViewById(R.id.r_monument_btn_star)
 }

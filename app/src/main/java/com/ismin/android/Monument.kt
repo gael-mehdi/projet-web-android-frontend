@@ -13,7 +13,7 @@ data class Monument(
     val reg_name: String, // Région
     val dep_current_code: String, // Numéro de département
     val dep_name: String, // Département
-    val fav: Boolean = false // Favoris ou non (false par défaut)
+    var favorite: Boolean // Favoris ou non
 ) : Serializable
 
 data class Geoloc(

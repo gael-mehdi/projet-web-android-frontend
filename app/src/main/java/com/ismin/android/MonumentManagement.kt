@@ -14,7 +14,9 @@ class MonumentManagement {
 
     fun getAllMonuments(): ArrayList<Monument> {
         return ArrayList(storage.values
-            .sortedBy { monument -> monument.dep_current_code })
+            .sortedWith(compareByDescending<Monument> { it.favorite } // Trier d'abord par le statut 'favorite' (les favoris d'abord)
+                .thenBy { it.dep_current_code } // Puis trier par 'dep_current_code'
+            ))
     }
 
     fun getMonumentsOf(reg_name: String): List<Monument> {

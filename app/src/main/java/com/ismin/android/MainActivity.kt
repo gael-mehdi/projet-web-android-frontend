@@ -90,11 +90,6 @@ class MainActivity : AppCompatActivity(), MonumentCreator {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {//clique sur un monument
         return when (item.itemId) {
-            R.id.action_delete -> {
-                monumentManagement.clear()
-                displayMonumentListFragment()
-                true
-            }
             R.id.action_show_list -> {
                 // Afficher le fragment de la liste
                 displayFragment(MonumentListFragment.newInstance(monumentManagement.getAllMonuments()))
